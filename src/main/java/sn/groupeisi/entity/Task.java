@@ -8,6 +8,7 @@ import java.time.LocalDate;
 @Entity
 @Table(name = "tasks")
 @Data
+@NamedQuery(name = "toto", query ="SELECT t FROM Task t WHERE t.isCompleted =: completed")
 public class Task {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
