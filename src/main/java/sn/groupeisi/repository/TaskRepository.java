@@ -17,10 +17,11 @@ public class TaskRepository {
         this.entityManager = entityManager;
     }
 
-    public void save(Task task) {
+    public Task save(Task task) {
         entityManager.getTransaction().begin();
         entityManager.persist(task);
         entityManager.getTransaction().commit();
+        return task;
     }
 
     public Task findById(Long id) {

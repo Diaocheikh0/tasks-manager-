@@ -31,4 +31,13 @@ public class Task {
 
     @ManyToOne
     private Category category;
+
+    public Task(String title, String description, LocalDate date) {
+        this.title = title;
+        this.description = description;
+        this.date = date;
+        this.isCompleted = false;
+    }
+
+    public Task() {}
 }
