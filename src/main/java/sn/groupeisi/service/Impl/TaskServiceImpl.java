@@ -6,15 +6,20 @@ import sn.groupeisi.entity.User;
 import sn.groupeisi.repository.TaskRepository;
 import sn.groupeisi.service.TaskService;
 
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
 import java.time.LocalDate;
 import java.util.List;
 
-public abstract class TaskServiceImpl implements TaskService {
+public class TaskServiceImpl implements TaskService {
 
     private final TaskRepository taskRepository;
+    @PersistenceContext
+    private EntityManager entityManager;
 
-    public TaskServiceImpl(TaskRepository taskRepository) {
+    public TaskServiceImpl(TaskRepository taskRepository, EntityManager entitymanager) {
         this.taskRepository = taskRepository;
+        this.entityManager = entitymanager;
     }
 
     // Pour Créer un task
@@ -24,7 +29,31 @@ public abstract class TaskServiceImpl implements TaskService {
         return taskRepository.save(task);
     }
 
-    // Assigne un utilisateur à une tâche
+    // Pour Créer une catégorie
+    @Override
+    public Category createCategory(String name, String description) {
+        Category category = new Category();
+        category.setName(name);
+        category.setDescription(description);
+        entityManager.getTransaction().begin();
+        entityManager.persist(category);
+        entityManager.getTransaction().commit();
+        return category;
+    }
+
+    // Pour créer un utilisateur
+    @Override
+    public User createUser(String username, String email) {
+        User user = new User();
+        user.setName(username);
+        user.setEmail(email);
+        entityManager.getTransaction().begin();
+        entityManager.persist(user);
+        entityManager.getTransaction().commit();
+        return user;
+    }
+
+    // Assigne une tâche à un utilisateur
     @Override
     public void assignTaskToUser(Task task, User user) {
         task.setUser(user);

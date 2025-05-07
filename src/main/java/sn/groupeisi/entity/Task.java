@@ -21,7 +21,7 @@ public class Task {
     private String description;
 
     @Column(name = "due_date")
-    private LocalDate date;
+    private LocalDate dueDate;
 
     @Column(name = "completed", columnDefinition = "boolean not null default false")
     private boolean isCompleted;
@@ -35,7 +35,7 @@ public class Task {
     public Task(String title, String description, LocalDate date) {
         this.title = title;
         this.description = description;
-        this.date = date;
+        this.dueDate = date;
         this.isCompleted = false;
     }
 

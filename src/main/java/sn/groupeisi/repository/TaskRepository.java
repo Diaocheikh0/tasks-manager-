@@ -56,7 +56,7 @@ public class TaskRepository {
 
     public List<Task> findByDueDateBefore(LocalDate date) {
         TypedQuery<Task> query = entityManager.createQuery(
-                "SELECT t FROM Task t WHERE t.date < :date", Task.class);
+                "SELECT t FROM Task t WHERE t.dueDate < :date", Task.class);
         query.setParameter("date", date);
         return query.getResultList();
     }
